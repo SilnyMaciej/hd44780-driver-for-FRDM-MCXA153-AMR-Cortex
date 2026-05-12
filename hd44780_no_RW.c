@@ -176,10 +176,16 @@ void LCD_Send_Int(int val){
 }
 
 
+void LCD_Clear(void){
+	LCD_Send_Command(0x01); // Clear command
+	delay_us(2000);
+}
+
+
 /*
  *
- * Funkcje pomocnicze
  *
+ * Helper Functions
  *
  *
  */
@@ -194,12 +200,6 @@ static void LCD_Send_Command(uint8_t command){
 			LCD_Send_8_Bits((uint8_t)command, 0);
 	#endif
 			delay_us(43U);
-}
-
-
-void LCD_Clear(void){
-	LCD_Send_Command(0x01); // Clear command
-	delay_us(2000);
 }
 
 
