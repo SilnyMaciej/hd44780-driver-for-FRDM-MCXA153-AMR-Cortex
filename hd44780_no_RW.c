@@ -9,10 +9,10 @@
 #include <stdlib.h>
 
 #ifdef LCD_MODE_4_BIT
-	void LCD_Send_4_Bits(uint8_t data, bool mode);
+	static void LCD_Send_4_Bits(uint8_t data, bool mode);
 
 #elif defined(LCD_MODE_8_BIT)
-	void LCD_Send_8_Bits(uint8_t data, bool flag);
+	static void LCD_Send_8_Bits(uint8_t data, bool flag);
 #endif
 
 static void LCD_Send_Command(uint8_t command);
@@ -26,7 +26,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 
 
 #ifdef LCD_MODE_4_BIT
-	void LCD_Send_4_Bits(uint8_t data, bool flag){
+	static void LCD_Send_4_Bits(uint8_t data, bool flag){
 
 		if(flag) LCD_RS_Mode_Write_Data();
 		else LCD_RS_Mode_Send_Data();
@@ -46,6 +46,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 		if((data >> 1) & 0x1) D5_GPIO -> PSOR = D5_PIN_MASK;
 		if((data >> 2) & 0x1) D6_GPIO -> PSOR = D6_PIN_MASK;
 		if((data >> 3) & 0x1) D7_GPIO -> PSOR = D7_PIN_MASK;
+		delay_us(1U);
 
 		LCD_Enable_Down(); // Setting enable pulse down
 
@@ -66,7 +67,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 	}
 
 #elif defined(LCD_MODE_8_BIT)
-	void LCD_Send_8_Bits(uint8_t data, bool flag){
+	static void LCD_Send_8_Bits(uint8_t data, bool flag){
 
 			if(flag) LCD_RS_Mode_Write_Data();
 			else LCD_RS_Mode_Send_Data();
@@ -83,6 +84,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 			if((data >> 5) & 0x1) D5_GPIO -> PSOR = D5_PIN_MASK;
 			if((data >> 6) & 0x1) D6_GPIO -> PSOR = D6_PIN_MASK;
 			if((data >> 7) & 0x1) D7_GPIO -> PSOR = D7_PIN_MASK;
+			delay_us(1U);
 
 			LCD_Enable_Down();
 
