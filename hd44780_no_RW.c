@@ -104,10 +104,11 @@ static inline void LCD_RS_Mode_Send_Data(void);
 
 
 void LCD_Init(){
-	BOARD_Init_4bitMode_2x16_lcd(); // Your functional group can be different than than default. If it is, you must change it
 	delay_us(18000);
 
 	#ifdef LCD_MODE_4_BIT
+	BOARD_Init_4bitMode_2x16_lcd(); // Your functional group can be different than than default. If it is, you must change it
+	delay_us(1);
 
 	LCD_Send_4_Bits(0x3, 0);
 	delay_us(5000);
