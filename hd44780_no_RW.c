@@ -42,7 +42,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 		 */
 
 
-		if((data) & 0x1) D4_GPIO -> PSOR = D4_PIN_MASK;
+		if((data) & 0x1) 	  D4_GPIO -> PSOR = D4_PIN_MASK;
 		if((data >> 1) & 0x1) D5_GPIO -> PSOR = D5_PIN_MASK;
 		if((data >> 2) & 0x1) D6_GPIO -> PSOR = D6_PIN_MASK;
 		if((data >> 3) & 0x1) D7_GPIO -> PSOR = D7_PIN_MASK;
@@ -74,7 +74,7 @@ static inline void LCD_RS_Mode_Send_Data(void);
 
 			LCD_Enable_Up();
 
-			if((data) & 0x1) D0_GPIO -> PSOR = D0_PIN_MASK;
+			if((data) & 0x1) 	  D0_GPIO -> PSOR = D0_PIN_MASK;
 			if((data >> 1) & 0x1) D1_GPIO -> PSOR = D1_PIN_MASK;
 			if((data >> 2) & 0x1) D2_GPIO -> PSOR = D2_PIN_MASK;
 			if((data >> 3) & 0x1) D3_GPIO -> PSOR = D3_PIN_MASK;
@@ -107,6 +107,7 @@ void LCD_Init(){
 	delay_us(18000);
 
 	#ifdef LCD_MODE_4_BIT
+
 	BOARD_Init_4bitMode_2x16_lcd(); // Your functional group can be different than than default. If it is, you must change it
 	delay_us(1);
 
@@ -123,6 +124,10 @@ void LCD_Init(){
 	LCD_Send_Command(0x28);
 
 	#elif defined(LCD_MODE_8_BIT)
+
+
+		delay_us(1);
+
 		LCD_Send_8_Bits(0x30, 0);
 		delay_us(5000);
 
@@ -155,7 +160,7 @@ void LCD_Send_Data(const char* buffer){
 
 		#ifdef LCD_MODE_4_BIT
 			LCD_Send_4_Bits((*buffer >> 4) & 0x0F, 1); // First, send the MSB nibble
-			LCD_Send_4_Bits((*buffer) & 0x0F,1); // Second, send the LSB nibble
+			LCD_Send_4_Bits((*buffer) & 0x0F,1);       // Second, send the LSB nibble
 
 		#elif defined(LCD_MODE_8_BIT)
 
