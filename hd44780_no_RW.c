@@ -6,6 +6,7 @@
  */
 
 #include "hd44780_no_RW.h"
+#include <stdlib.h>
 
 #ifdef LCD_MODE_4_BIT
 	void LCD_Send_4_Bits(uint8_t data, bool mode);
@@ -212,20 +213,8 @@ static inline void LCD_Enable_Down(void){ E_GPIO->PCOR = E_PIN_MASK; } // EN /  
 
 
 
-static inline void LCD_RS_Mode_Write_Data(){ RS_GPIO->PSOR = RS_PIN_MASK; } // Set RS to high for write mode
+static inline void LCD_RS_Mode_Write_Data(void){ RS_GPIO->PSOR = RS_PIN_MASK; } // Set RS to high for write mode
 
 
 
-static inline void LCD_RS_Mode_Send_Data(){ RS_GPIO->PCOR = RS_PIN_MASK; } // Set RS to low for command mode
-
-
-
-
-
-
-
-
-
-
-
-
+static inline void LCD_RS_Mode_Send_Data(void){ RS_GPIO->PCOR = RS_PIN_MASK; } // Set RS to low for command mode
